@@ -1,4 +1,48 @@
-DG Interns Hub - Cybersecurity Internship | Week 8Project TitleAdvanced VAPT: Attack Surface Mapping, Parameter Testing & Attack-Chain AnalysisAuthor & Submission DetailsSubmitted By: Prakhar GuptaRole: Cybersecurity InternProgram: DG Interns Hub - Cybersecurity Internship ProgramSubmission Date: 28 October 2026Authorized Local Lab Environment: Damn Vulnerable Web Application (DVWA) hosted locally at http://127.0.0.1:8080, assessed using Burp Suite Community Edition.Project OverviewThis repository contains the documentation, technical notes, and report artifacts for Week 8 of the cybersecurity internship. The core objective of this assignment was to conduct a hands-on, evidence-based vulnerability assessment focusing on web application attack surfaces, parameter tampering, and request inspection.Key Focus Areas:Attack Surface Mapping: Identifying key application routes and testing endpoints (SQL Injection, Brute Force, and Weak Session IDs) via Burp Suite proxy and history logs.SQL Injection Parameter Testing: Executing baseline, valid, invalid, and Boolean-logic modified tests (2 OR 1=1) under DVWA's Medium security setting to observe database response behavior.Authentication & Session Analysis: Reviewing credential handling mechanisms (GET vs. POST query strings) and observing session token generation behavior (dvwaSession cookies).Evidence-Based Risk Analysis: Differentiating between confirmed lab vulnerabilities, design concerns, and unproven claims, followed by robust remediation strategies.Repository Structure├── Week_8.pdf               # Complete official internship report document
-├── README.md                # Project documentation and summary
-└── assets/                  # Captured Burp Suite evidence screenshots (Figures 1 - 10)
-Summary of Findings & ObservationsVulnerability / ObservationTested EndpointSeverity / StatusKey TakeawaySQL Injection/vulnerabilities/sqli/High (Confirmed in Lab)Modified input altered query logic, returning multiple user records instead of a single profile.Credential Exposure Risk/vulnerabilities/brute/Medium (Design Concern)Captured requests transmitted credentials via URL query strings (GET method), risking browser/proxy log exposure.Session Token Generation/vulnerabilities/weak_id/Informational / Needs ValidationConfirmed generation of changing tokens via cookies; requires statistical entropy analysis to prove predictability.Key Remediation RecommendationsSQL Injection: Replace dynamic string concatenation with parameterized queries / prepared statements and validate user IDs strictly as integers on the server side.Authentication Handling: Enforce POST requests over HTTPS for credential submission and implement account lockout/rate limiting.Session Management: Generate session tokens using cryptographically secure random number generators (CSPRNG) and configure strict cookie attributes (HttpOnly, Secure, SameSite).Tools UsedDamn Vulnerable Web Application (DVWA) (Local Training Lab)Burp Suite Community Edition (HTTP Proxy, Repeater, and Request History Inspector)Web Browser (Firefox / Chromium for navigation and input testing)Disclaimer: All testing procedures, parameter tampering, and security assessments were strictly confined to the authorized local training environment (DVWA) for educational and professional skill development.
+# 🛡️ DG Interns Hub — Cybersecurity Internship Program
+## Week 8: Advanced VAPT (Attack Surface Mapping, Parameter Testing & Attack-Chain Analysis)
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Internship-DG%20Interns%20Hub-blue?style=for-the-badge&logo=shield" alt="DG Interns Hub">
+  <img src="https://img.shields.io/badge/Status-Completed-success?style=for-the-badge" alt="Status Completed">
+  <img src="https://img.shields.io/badge/Target-DVWA%20(Local%20Lab)-orange?style=for-the-badge" alt="DVWA Local Lab">
+  <img src="https://img.shields.io/badge/Tool-Burp%20Suite-orange?style=for-the-badge&logo=burpsuite" alt="Burp Suite">
+</p>
+
+---
+
+## 👨‍💻 Intern Details
+* **Name:** Prakhar Gupta
+* **Role:** Cybersecurity Intern
+* **Program:** DG Interns Hub — Cybersecurity Internship Program
+* **Submission Date:** 28 October 2026
+
+---
+
+## 🎯 Project Overview
+This repository contains the documentation, artifacts, and findings for **Week 8** of the cybersecurity internship. The practical assessment focused on advanced Vulnerability Assessment and Penetration Testing (VAPT) methodologies, specifically **Attack Surface Mapping**, **Parameter Testing**, and **Attack-Chain Analysis** conducted within an authorized local lab environment.
+
+---
+
+## 🧪 Lab Environment & Tools
+* **Target Application:** Damn Vulnerable Web Application (DVWA) hosted locally at `http://127.0.0.1:8080` (Configured to **Medium Security** setting).
+* **Assessment Toolkit:** Burp Suite Community Edition (Proxy, Repeater, Sequencer) and modern web browser developer tools.
+* **Scope:** Local training application modules including SQL Injection, Brute Force authentication, and Weak Session IDs.
+
+---
+
+## 📑 Key Modules & Findings
+
+| Module / Vector | Observation / Finding | Risk Level | Status |
+| :--- | :--- | :--- | :--- |
+| **SQL Injection (SQLi)** | Modified user-ID parameter using Boolean logic (`2 OR 1=1`) successfully altered query logic, disclosing multiple records. | High (Lab) | Confirmed |
+| **Brute Force Login** | Credentials observed in URL query strings (GET method) rather than a secure POST body. | Medium (Design) | Observed |
+| **Weak Session IDs** | `dvwaSession` cookie values changed upon generation requests; requires statistical randomness analysis. | Low / Info | Needs Validation |
+| **Parameter Validation** | Invalid/non-matching ID (`999`) returned HTTP 200 without disclosing records (expected safe behavior). | Informational | Baseline Verified |
+
+---
+
+## 📂 Repository Structure
+```text
+├── Week_8.pdf                 # Complete formal internship report (PDF)
+├── README.md                  # Project documentation & summary
+└── assets/                    # Burp Suite screenshots and figures (Figures 1 - 10)
